@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주식회사 모아밴(MOAVAN) - 카드단말기 전문기업</title>
-    <meta name="description" content="17년 경력의 카드단말기 전문기업 모아밴입니다. 유무선 카드단말기, POS시스템, 키오스크 등 다양한 결제 솔루션을 제공합니다.">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- TinyMCE -->
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         :root {
             --primary: #1e5fb3;
@@ -50,6 +47,19 @@
             background-color: var(--secondary);
         }
 
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-accent:hover {
+            background-color: #c39e25;
+        }
+
         .section-title {
             font-size: 2rem;
             font-weight: 700;
@@ -58,111 +68,2022 @@
             text-align: center;
             position: relative;
         }
+
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 10px auto;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-link {
+            margin: 0 10px;
+            padding: 5px;
+            font-weight: 500;
+            color: var(--dark);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e5fb3 0%, #0f4a8a 100%);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSI0MCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSI+PC9yZWN0PjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSI+PC9yZWN0Pjwvc3ZnPg==');
+            opacity: 0.2;
+        }
+
+        /* AI Chatbot */
+        .chatbot-banner {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .chat-header i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .chat-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .chat-input {
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .chat-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Product Section */
+        .product-section {
+            padding: 80px 0;
+        }
+
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .product-desc {
+            color: var(--gray);
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        /* Company Info Section */
+        .company-info {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .info-icon i {
+            color: white;
+            font-size: 20px;
+        }
+
+        .info-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .info-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #233044;
+            color: rgba(255,255,255,0.7);
+            padding: 50px 0 20px;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-contact {
+            margin-top: 20px;
+        }
+
+        .footer-contact div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 10px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            font-size: 28px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .close-modal:hover {
+            color: black;
+        }
+
+        /* Event Popup */
+        .event-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            z-index: 2000;
+            width: 420px;
+            max-width: 90%;
+        }
+
+        .event-popup-content {
+            padding: 30px;
+        }
+
+        .event-popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .event-popup-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .close-popup {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .event-popup-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .event-popup-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .event-popup-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-popup-footer .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .event-popup-footer label {
+            margin-left: 5px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Contact Form */
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .contact-form input, 
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .form-check input {
+            width: auto;
+            margin-right: 10px;
+            margin-top: 6px;
+        }
+
+        /* Admin Login Modal */
+        .admin-login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-login-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .admin-menu {
+            display: flex;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .admin-menu-item {
+            padding: 10px 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            border-radius: 5px;
+        }
+
+        .admin-menu-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .admin-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .admin-form-group {
+            margin-bottom: 15px;
+        }
+
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .admin-form-group input,
+        .admin-form-group textarea,
+        .admin-form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .admin-form-group textarea {
+            height: 100px;
+        }
+
+        .admin-action-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .admin-delete-btn {
+            background-color: #dc3545;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .info-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .info-icon i {
+                font-size: 16px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+            
+            .admin-menu {
+                flex-wrap: wrap;
+            }
+            
+            .admin-menu-item {
+                margin-bottom: 5px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <header class="py-4 shadow-sm">
+    <header class="py-4">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="logo">
-                <img src="images/moavan-logo.png" alt="모아밴 로고" class="h-12">
-            </div>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#products" class="nav-link">제품소개</a>
-                <a href="#company" class="nav-link">회사소개</a>
-                <a href="#contact" class="nav-link">문의하기</a>
+            <a href="#" class="logo flex items-center">
+                <span class="text-primary">MOAVAN</span>
+            </a>
+            <nav class="hidden md:flex">
+                <a href="#products" class="nav-link">제품 소개</a>
+                <a href="#company" class="nav-link">회사 소개</a>
+                <a href="#contactModal" class="nav-link modal-trigger">문의하기</a>
+                <a href="#loginModal" class="btn-primary ml-4 modal-trigger">로그인</a>
             </nav>
-            <button class="btn-primary">상담신청</button>
+            <div class="md:hidden">
+                <button id="mobileMenuBtn" class="text-gray-500">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden bg-white w-full py-4 px-6 shadow-lg md:hidden">
+            <div class="flex flex-col space-y-3">
+                <a href="#products" class="nav-link">제품 소개</a>
+                <a href="#company" class="nav-link">회사 소개</a>
+                <a href="#contactModal" class="nav-link modal-trigger">문의하기</a>
+                <a href="#loginModal" class="nav-link modal-trigger">로그인</a>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero bg-primary text-white py-20">
-        <div class="container mx-auto text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">결제의 새로운 기준</h1>
-            <p class="text-xl mb-8">17년 노하우의 카드단말기 전문기업 모아밴이<br>최적의 결제 솔루션을 제공합니다</p>
-            <button class="btn-accent text-lg">지금 상담하기</button>
+    <section class="hero">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div class="hero-content md:w-1/2 mb-10 md:mb-0">
+                <h1>17년 경력의<br>카드단말기 전문기업</h1>
+                <p>10만 이상의 가맹점 보유, 월 1억 건 이상의 거래 처리 능력을 갖춘 결제 시스템 전문 기업입니다.</p>
+                <div class="flex flex-wrap">
+                    <a href="#products" class="btn-primary mr-4 mb-4 md:mb-0">제품 둘러보기</a>
+                    <a href="#contactModal" class="btn-accent modal-trigger">상담 신청하기</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://m.heyposmall.com/_wg/img/JS_mainBnr/x990_mb.png" alt="모아밴 카드단말기" class="max-w-full max-h-60 md:max-h-80">
+            </div>
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="py-16">
+    <!-- AI Chatbot -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="chatbot-banner mx-auto max-w-xl">
+                <div class="chat-header">
+                    <i class="fas fa-robot"></i>
+                    <div class="chat-title">AI 24시간 실시간 상담</div>
+                </div>
+                <form id="chatForm" class="chat-input">
+                    <input type="text" id="chatInput" placeholder="질문을 입력하세요" required>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="products" class="product-section">
         <div class="container mx-auto">
             <h2 class="section-title">제품 소개</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 제품 카드들 -->
+                <!-- 유선카드단말기 -->
                 <div class="product-card">
-                    <img src="images/product1.jpg" alt="무선 카드단말기" class="w-full rounded-lg mb-4">
-                    <h3 class="text-xl font-bold mb-2">무선 카드단말기</h3>
-                    <p class="text-gray-600">어디서나 자유롭게 결제하세요</p>
+                    <div class="product-image">
+                        <img src="https://cdn.imweb.me/thumbnail/20250307/47dd13ec4e895.png" alt="유선카드단말기">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">유선카드단말기</h3>
+                        <p class="product-desc">안정적인 유선 연결로 끊김없는 결제 서비스를 제공하는 카드단말기입니다. 다양한 카드 결제를 지원합니다.</p>
+                        <a href="#productDetail" class="btn-primary text-center product-detail-btn" data-product="유선카드단말기">자세히 보기</a>
+                    </div>
                 </div>
-                <!-- 추가 제품 카드들 -->
+                
+                <!-- 무선카드단말기 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://blog.kakaocdn.net/dn/ctbmIM/btsIGJB3gPi/2wvzRASK0sniQVjceZG9hk/img.jpg" alt="무선카드단말기">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">무선카드단말기</h3>
+                        <p class="product-desc">이동성이 자유로운 무선 카드단말기로, 배터리 지속시간이 길고 언제 어디서나 결제가 가능합니다.</p>
+                        <a href="#productDetail" class="btn-primary text-center product-detail-btn" data-product="무선카드단말기">자세히 보기</a>
+                    </div>
+                </div>
+                
+                <!-- POS시스템 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://blog.kakaocdn.net/dn/b6UuXs/btsIJc3rJ0H/ZhZWwDnymTSM3SsXQOdwK1/img.jpg" alt="POS시스템">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">POS시스템</h3>
+                        <p class="product-desc">매출 관리, 재고 관리, 고객 데이터 관리까지 한번에 해결할 수 있는 통합 POS 시스템입니다.</p>
+                        <a href="#productDetail" class="btn-primary text-center product-detail-btn" data-product="POS시스템">자세히 보기</a>
+                    </div>
+                </div>
+                
+                <!-- 키오스크 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://whee.kr/web/product/big/202303/2db0851b77a8c12483d49c54c25b2d43.png" alt="키오스크">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">키오스크</h3>
+                        <p class="product-desc">인건비 절감과 효율적인 주문 처리가 가능한 무인 주문 시스템입니다. 직관적인 UI로 고객 사용이 편리합니다.</p>
+                        <a href="#productDetail" class="btn-primary text-center product-detail-btn" data-product="키오스크">자세히 보기</a>
+                    </div>
+                </div>
+                
+                <!-- 태블릿오더 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://m.heyposmall.com/web/product/medium/202504/ef8e87072ac9921c9c8149bed8b5e5ec.png" alt="태블릿오더">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">태블릿오더</h3>
+                        <p class="product-desc">테이블에서 직접 주문할 수 있는 편리한 시스템으로 음식점, 카페 등에 최적화된 솔루션입니다.</p>
+                        <a href="#productDetail" class="btn-primary text-center product-detail-btn" data-product="태블릿오더">자세히 보기</a>
+                    </div>
+                </div>
+                
+                <!-- PG결제시스템 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://bignet.company/data/goods/1/2023/07/143_temp_16905657957541view.jpg" alt="PG결제시스템">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">PG결제시스템</h3>
+                        <p class="product-desc">온라인 결제를 위한 안전하고 편리한 PG 결제 시스템으로, 다양한 결제수단을 지원합니다.</p>
+                        <a href="#productDetail" class="btn-primary text-center product-detail-btn" data-product="PG결제시스템">자세히 보기</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Company Section -->
-    <section id="company" class="py-16 bg-light">
+    <!-- Company Information -->
+    <section id="company" class="company-info">
         <div class="container mx-auto">
             <h2 class="section-title">회사 소개</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="company-info">
-                    <h3 class="text-2xl font-bold mb-4">17년 전통의 결제 솔루션 전문기업</h3>
-                    <p class="text-gray-600 mb-6">
-                        2006년 설립 이후, 모아밴은 끊임없는 혁신과 발전을 통해
-                        대한민국 결제 시장을 선도해왔습니다.
-                    </p>
-                    <!-- 회사 정보 추가 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>회사명</h4>
+                            <p>주식회사 모아밴 (MOAVAN)</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>설립일</h4>
+                            <p>2016년 09월 12일</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>사업자등록번호</h4>
+                            <p>633-86-00575</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>통신판매업 신고번호</h4>
+                            <p>2022-인천계양구-0931</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="company-image">
-                    <img src="images/company.jpg" alt="모아밴 사옥" class="rounded-lg shadow-lg">
+                <div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>대표자</h4>
+                            <p>김소영</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>주소</h4>
+                            <p>인천시 계양구 작전동 416-6 경원빌딩 405호</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>연락처</h4>
+                            <p>1544-2960 (대표번호)<br>010-9979-2343 (24시간 AS 문자접수)</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>이메일</h4>
+                            <p>aho77@daum.net</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-xl font-bold text-center mb-8">사업 핵심 역량</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-3">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">업력</h4>
+                        <p>17년간의 카드단말기 판매 및 관리 경험</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-3">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">규모</h4>
+                        <p>10만 이상의 가맹점 보유</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-3">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">처리 능력</h4>
+                        <p>월 1억 건 이상의 거래 처리</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-3">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">파트너십</h4>
+                        <p>키스정보통신/코밴 총판</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-3">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">취급 상품</h4>
+                        <p>유선/무선 카드단말기, POS시스템, 키오스크</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <div class="text-4xl text-primary mb-3">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">고객 지원</h4>
+                        <p>24시간 AS 문자접수 가능</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- AI 챗봇 섹션 -->
-    <section class="py-12 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="section-title">AI 상담 서비스</h2>
-            <div class="text-center mb-8">
-                <p class="text-lg text-gray-600">
-                    24시간 365일 언제든 문의하실 수 있습니다.<br>
-                    오른쪽 하단의 채팅 버튼을 클릭하시면 AI 상담사가 친절히 답변해드립니다.
-                </p>
+    <!-- Admin Dashboard (Hidden by default) -->
+    <section id="adminDashboard" class="admin-dashboard container mx-auto">
+        <h2 class="section-title">관리자 대시보드</h2>
+        <div id="adminLogoutBtn" class="text-right mb-4">
+            <button class="btn-primary">로그아웃</button>
+        </div>
+        
+        <div class="admin-menu">
+            <div class="admin-menu-item active" data-section="siteContent">사이트 콘텐츠</div>
+            <div class="admin-menu-item" data-section="products">제품 관리</div>
+            <div class="admin-menu-item" data-section="eventPopup">이벤트 팝업</div>
+            <div class="admin-menu-item" data-section="inquiries">문의 관리</div>
+            <div class="admin-menu-item" data-section="settings">설정</div>
+        </div>
+        
+        <div class="admin-content">
+            <!-- 사이트 콘텐츠 관리 -->
+            <div class="admin-section active" id="siteContent">
+                <h3 class="text-xl font-bold mb-4">사이트 콘텐츠 관리</h3>
+                <form id="heroContentForm">
+                    <div class="admin-form-group">
+                        <label>메인 타이틀</label>
+                        <input type="text" id="heroTitle" value="17년 경력의 카드단말기 전문기업">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>메인 설명</label>
+                        <textarea id="heroDescription">10만 이상의 가맹점 보유, 월 1억 건 이상의 거래 처리 능력을 갖춘 결제 시스템 전문 기업입니다.</textarea>
+                    </div>
+                    <button type="submit" class="admin-action-btn">저장하기</button>
+                </form>
+            </div>
+            
+            <!-- 제품 관리 -->
+            <div class="admin-section" id="products">
+                <h3 class="text-xl font-bold mb-4">제품 관리</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b">제품명</th>
+                                <th class="py-2 px-4 border-b">카테고리</th>
+                                <th class="py-2 px-4 border-b">관리</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productList">
+                            <tr>
+                                <td class="py-2 px-4 border-b">유선카드단말기</td>
+                                <td class="py-2 px-4 border-b">카드단말기</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn edit-product-btn" data-product="유선카드단말기">수정</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">무선카드단말기</td>
+                                <td class="py-2 px-4 border-b">카드단말기</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn edit-product-btn" data-product="무선카드단말기">수정</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">POS시스템</td>
+                                <td class="py-2 px-4 border-b">POS</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn edit-product-btn" data-product="POS시스템">수정</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">키오스크</td>
+                                <td class="py-2 px-4 border-b">키오스크</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn edit-product-btn" data-product="키오스크">수정</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">태블릿오더</td>
+                                <td class="py-2 px-4 border-b">주문시스템</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn edit-product-btn" data-product="태블릿오더">수정</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">PG결제시스템</td>
+                                <td class="py-2 px-4 border-b">결제시스템</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn edit-product-btn" data-product="PG결제시스템">수정</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button id="addProductBtn" class="admin-action-btn mt-4">새 제품 추가</button>
+            </div>
+            
+            <!-- 이벤트 팝업 관리 -->
+            <div class="admin-section" id="eventPopup">
+                <h3 class="text-xl font-bold mb-4">이벤트 팝업 관리</h3>
+                <form id="eventPopupForm">
+                    <div class="admin-form-group">
+                        <label>팝업 활성화</label>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="eventPopupActive" class="mr-2">
+                            <span>활성화</span>
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>팝업 제목</label>
+                        <input type="text" id="eventPopupTitle" value="신규 고객 특별 프로모션">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>팝업 이미지 URL</label>
+                        <input type="text" id="eventPopupImage" value="https://m.heyposmall.com/_wg/img/JS_mainBnr/x990_mb.png">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>부제목</label>
+                        <input type="text" id="eventPopupSubtitle" value="첫 계약 고객 설치비 무료!">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>내용</label>
+                        <textarea id="eventPopupContent">모아밴과 함께라면 창업이 더 쉬워집니다. 지금 계약하시는 모든 신규 고객님께 설치비를 완전 면제해 드립니다.</textarea>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>하단 설명</label>
+                        <input type="text" id="eventPopupFooter" value="* 프로모션 기간: 2025년 6월 1일 ~ 6월 30일">
+                    </div>
+                    <div class="admin-form-group">
+                        <label>버튼 텍스트</label>
+                        <input type="text" id="eventPopupButton" value="지금 문의하기">
+                    </div>
+                    <button type="submit" class="admin-action-btn">저장하기</button>
+                </form>
+            </div>
+            
+            <!-- 문의 관리 -->
+            <div class="admin-section" id="inquiries">
+                <h3 class="text-xl font-bold mb-4">문의 관리</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border">
+                        <thead>
+                            <tr>
+                                <th class="py-2 px-4 border-b">날짜</th>
+                                <th class="py-2 px-4 border-b">이름</th>
+                                <th class="py-2 px-4 border-b">이메일</th>
+                                <th class="py-2 px-4 border-b">문의 유형</th>
+                                <th class="py-2 px-4 border-b">상태</th>
+                                <th class="py-2 px-4 border-b">관리</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inquiryList">
+                            <tr>
+                                <td class="py-2 px-4 border-b">2023.05.26</td>
+                                <td class="py-2 px-4 border-b">홍길동</td>
+                                <td class="py-2 px-4 border-b">hong@example.com</td>
+                                <td class="py-2 px-4 border-b">제품 문의</td>
+                                <td class="py-2 px-4 border-b">대기중</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn">보기</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">2023.05.25</td>
+                                <td class="py-2 px-4 border-b">김철수</td>
+                                <td class="py-2 px-4 border-b">kim@example.com</td>
+                                <td class="py-2 px-4 border-b">AS 문의</td>
+                                <td class="py-2 px-4 border-b">답변완료</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn">보기</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border-b">2023.05.24</td>
+                                <td class="py-2 px-4 border-b">이영희</td>
+                                <td class="py-2 px-4 border-b">lee@example.com</td>
+                                <td class="py-2 px-4 border-b">서비스 문의</td>
+                                <td class="py-2 px-4 border-b">처리중</td>
+                                <td class="py-2 px-4 border-b">
+                                    <button class="admin-action-btn">보기</button>
+                                    <button class="admin-action-btn admin-delete-btn">삭제</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 설정 -->
+            <div class="admin-section" id="settings">
+                <h3 class="text-xl font-bold mb-4">설정</h3>
+                <form id="settingsForm">
+                    <div class="admin-form-group">
+                        <label>비밀번호 변경</label>
+                        <input type="password" id="currentPassword" placeholder="현재 비밀번호">
+                    </div>
+                    <div class="admin-form-group">
+                        <input type="password" id="newPassword" placeholder="새 비밀번호">
+                    </div>
+                    <div class="admin-form-group">
+                        <input type="password" id="confirmPassword" placeholder="새 비밀번호 확인">
+                    </div>
+                    <button type="submit" class="admin-action-btn">저장하기</button>
+                </form>
+                
+                <h3 class="text-xl font-bold mb-4 mt-8">Tawk.to 챗봇 설정</h3>
+                <form id="chatbotForm">
+                    <div class="admin-form-group">
+                        <label>Tawk.to 위젯 ID</label>
+                        <input type="text" id="tawkToId" placeholder="예: 61e567c0b84f7301d32b732c">
+                    </div>
+                    <div class="admin-form-group">
+                        <p class="text-sm text-gray-500">Tawk.to ID는 <a href="https://www.tawk.to" target="_blank" class="text-primary">www.tawk.to</a> 회원가입 후 대시보드에서 확인할 수 있습니다.</p>
+                    </div>
+                    <button type="submit" class="admin-action-btn">저장하기</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-12">
+    <footer>
         <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="footer-info">
-                    <h4 class="text-xl font-bold mb-4">주식회사 모아밴</h4>
-                    <p>사업자등록번호: 123-45-67890</p>
-                    <p>대표: 홍길동</p>
-                    <p>주소: 서울특별시 강남구 테헤란로</p>
-                </div>
-                <div class="footer-contact">
-                    <h4 class="text-xl font-bold mb-4">고객센터</h4>
-                    <p>전화: 1544-0000</p>
-                    <p>이메일: contact@moavan.com</p>
-                    <p>운영시간: 평일 09:00-18:00</p>
-                </div>
-                <div class="footer-social">
-                    <h4 class="text-xl font-bold mb-4">소셜미디어</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-white hover:text-accent"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-white hover:text-accent"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white hover:text-accent"><i class="fab fa-youtube"></i></a>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <h3 class="footer-title">주식회사 모아밴 (MOAVAN)</h3>
+                    <p class="mb-4">17년 경력의 카드단말기 전문기업으로 유선/무선 카드단말기, POS시스템, 키오스크, 태블릿오더, PG결제시스템 등을 제공합니다.</p>
+                    <div class="footer-contact">
+                        <div>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>인천시 계양구 작전동 416-6 경원빌딩 405호</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>1544-2960 (대표번호)</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>010-9979-2343 (24시간 AS 문자접수)</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-envelope"></i>
+                            <span>aho77@daum.net</span>
+                        </div>
                     </div>
+                </div>
+                <div>
+                    <h3 class="footer-title">제품 정보</h3>
+                    <ul class="footer-links">
+                        <li><a href="#productDetail" class="product-detail-btn" data-product="유선카드단말기">유선카드단말기</a></li>
+                        <li><a href="#productDetail" class="product-detail-btn" data-product="무선카드단말기">무선카드단말기</a></li>
+                        <li><a href="#productDetail" class="product-detail-btn" data-product="POS시스템">POS시스템</a></li>
+                        <li><a href="#productDetail" class="product-detail-btn" data-product="키오스크">키오스크</a></li>
+                        <li><a href="#productDetail" class="product-detail-btn" data-product="태블릿오더">태블릿오더</a></li>
+                        <li><a href="#productDetail" class="product-detail-btn" data-product="PG결제시스템">PG결제시스템</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">고객지원</h3>
+                    <ul class="footer-links">
+                        <li><a href="#faqModal" class="modal-trigger">자주묻는질문</a></li>
+                        <li><a href="#contactModal" class="modal-trigger">문의하기</a></li>
+                        <li><a href="#privacyModal" class="modal-trigger">개인정보처리방침</a></li>
+                        <li><a href="#termsModal" class="modal-trigger">이용약관</a></li>
+                        <li><a href="#asModal" class="modal-trigger">AS 신청/조회</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 주식회사 모아밴(MOAVAN). All Rights Reserved.</p>
+                <div class="mt-3">
+                    <span class="mr-4">사업자등록번호: 633-86-00575</span>
+                    <span>통신판매업 신고번호: 2022-인천계양구-0931</span>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Tidio 챗봇 스크립트 -->
-    <script src="//code.tidio.co/YOUR_TIDIO_PUBLIC_KEY.js" async></script>
+    <!-- Back to top button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Event Popup -->
+    <div class="event-popup" id="eventPopup">
+        <div class="event-popup-content">
+            <div class="event-popup-header">
+                <h3 class="event-popup-title">신규 고객 특별 프로모션</h3>
+                <span class="close-popup" id="closeEventPopup">&times;</span>
+            </div>
+            <div class="event-popup-image">
+                <img src="https://m.heyposmall.com/_wg/img/JS_mainBnr/x990_mb.png" alt="이벤트 프로모션">
+            </div>
+            <div class="event-popup-body">
+                <h4 class="font-bold text-lg mb-3">첫 계약 고객 설치비 무료!</h4>
+                <p class="mb-4">모아밴과 함께라면 창업이 더 쉬워집니다. 지금 계약하시는 모든 신규 고객님께 설치비를 완전 면제해 드립니다.</p>
+                <div class="flex justify-center mb-4">
+                    <a href="#contactModal" class="btn-accent modal-trigger py-2 px-8">지금 문의하기</a>
+                </div>
+                <p class="text-sm text-gray-500">* 프로모션 기간: 2025년 6월 1일 ~ 6월 30일</p>
+            </div>
+            <div class="event-popup-footer mt-4 pt-3 border-t border-gray-200">
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="noShowToday">
+                    <label for="noShowToday">오늘 하루 보지 않기</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">문의하기</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">이름 *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일 *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처 *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiryType">문의 유형 *</label>
+                        <select id="inquiryType" name="inquiryType" class="w-full p-2 border border-gray-300 rounded">
+                            <option value="">선택하세요</option>
+                            <option value="product">제품 문의</option>
+                            <option value="service">서비스 문의</option>
+                            <option value="as">AS 문의</option>
+                            <option value="partnership">제휴 문의</option>
+                            <option value="other">기타 문의</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">문의 내용 *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="privacyConsent" required>
+                            <div>
+                                <label for="privacyConsent">개인정보 수집 및 이용에 동의합니다. <a href="#privacyModal" class="text-primary modal-trigger">자세히 보기</a></label>
+                                <p class="text-gray-500 text-sm mt-1">위 개인정보 수집에 대한 동의를 거부할 권리가 있으며, 동의 거부 시에는 문의 등록이 제한될 수 있습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-6">
+                        <button type="submit" class="btn-primary px-8 py-3">문의하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 class="modal-title">관리자 로그인</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form class="admin-login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="username">아이디</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="text-center mt-6">
+                        <button type="submit" class="btn-primary px-8 py-3 w-full">로그인</button>
+                    </div>
+                    <div id="loginError" class="login-error text-center mt-4">
+                        아이디 또는 비밀번호가 일치하지 않습니다.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div id="faqModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">자주 묻는 질문</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="faq-item mb-6">
+                    <h4 class="font-bold text-primary text-lg mb-2">Q. 카드단말기 AS 신청은 어떻게 하나요?</h4>
+                    <p>A. 카드단말기 AS는 대표번호(1544-2960)로 전화 또는 24시간 AS 문자접수(010-9979-2343)를 통해 신청 가능합니다. 문자로 신청 시 모델명, 증상, 주소를 함께 보내주시면 빠른 처리가 가능합니다.</p>
+                </div>
+                
+                <div class="faq-item mb-6">
+                    <h4 class="font-bold text-primary text-lg mb-2">Q. 카드단말기 설치 비용은 얼마인가요?</h4>
+                    <p>A. 카드단말기 설치 비용은 모델과 계약 조건에 따라 다릅니다. 현재 진행 중인 프로모션을 통해 설치비 무료 혜택을 받으실 수 있으니 상담을 통해 자세한 내용을 확인하세요.</p>
+                </div>
+                
+                <div class="faq-item mb-6">
+                    <h4 class="font-bold text-primary text-lg mb-2">Q. 무선 카드단말기의 배터리 지속시간은 얼마나 되나요?</h4>
+                    <p>A. 무선 카드단말기의 배터리는 모델에 따라 다르지만, 일반적으로 완전 충전 시 약 8~12시간 사용 가능합니다. 하루 종일 사용하는 매장에서는 충전 거치대를 함께 사용하시는 것을 권장합니다.</p>
+                </div>
+                
+                <div class="faq-item mb-6">
+                    <h4 class="font-bold text-primary text-lg mb-2">Q. POS 시스템 도입 시 기존 데이터를 이전할 수 있나요?</h4>
+                    <p>A. 네, 기존 POS 시스템의 데이터를 새 시스템으로 이전해 드립니다. 데이터 형식과 양에 따라 별도의 작업이 필요할 수 있으며, 전문 기술자가 방문하여 진행합니다.</p>
+                </div>
+                
+                <div class="faq-item mb-6">
+                    <h4 class="font-bold text-primary text-lg mb-2">Q. 키오스크 도입 후 사용법 교육도 제공되나요?</h4>
+                    <p>A. 키오스크 설치 후 매장 직원들을 대상으로 무료 사용법 교육을 제공하고 있습니다. 또한 설치 이후에도 원격 지원과 방문 교육을 통해 지속적으로 도움을 드리고 있습니다.</p>
+                </div>
+                
+                <div class="faq-item mb-6">
+                    <h4 class="font-bold text-primary text-lg mb-2">Q. 카드 수수료율은 어떻게 결정되나요?</h4>
+                    <p>A. 카드 수수료율은 사업자의 업종, 매출 규모, 계약 조건 등 여러 요소에 따라 다르게 책정됩니다. 상담을 통해 귀사에 가장 유리한 조건의 수수료율을 제안해 드립니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">개인정보처리방침</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>주식회사 모아밴('MOAVAN')은 이용자의 개인정보를 중요시하며, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」, 「개인정보보호법」을 준수하기 위하여 노력하고 있습니다.</p>
+                
+                <h3 class="text-lg font-bold mt-6 mb-3">1. 수집하는 개인정보 항목 및 수집방법</h3>
+                <p>회사는 회원가입, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.</p>
+                <ul class="list-disc pl-5 my-3">
+                    <li>필수항목: 이름, 연락처, 이메일, 주소</li>
+                    <li>선택항목: 회사명, 부서, 직책</li>
+                    <li>서비스 이용 과정에서 IP 주소, 쿠키, 방문 일시, 서비스 이용 기록, 불량 이용 기록이 생성되어 수집될 수 있습니다.</li>
+                </ul>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">2. 개인정보의 수집 및 이용목적</h3>
+                <p>회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.</p>
+                <ul class="list-disc pl-5 my-3">
+                    <li>서비스 제공에 관한 계약 이행 및 서비스 제공에 따른 요금정산</li>
+                    <li>회원 관리: 회원제 서비스 이용, 개인식별, 불량회원의 부정 이용 방지, 비인가 사용 방지, 가입 의사 확인, 분쟁 조정을 위한 기록보존, 불만처리 등 민원처리, 고지사항 전달</li>
+                    <li>마케팅 및 광고에 활용: 신규 서비스 개발 및 특화, 이벤트 등 광고성 정보 전달, 접속 빈도 파악, 회원의 서비스 이용에 대한 통계</li>
+                </ul>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">3. 개인정보의 보유 및 이용기간</h3>
+                <p>회사는 개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다. 단, 관계법령의 규정에 의하여 보존할 필요가 있는 경우 회사는 아래와 같이 관계법령에서 정한 일정한 기간 동안 회원정보를 보관합니다.</p>
+                <ul class="list-disc pl-5 my-3">
+                    <li>보존 항목: 이름, 연락처, 이메일, 서비스 이용기록</li>
+                    <li>보존 근거: 전자상거래 등에서의 소비자보호에 관한 법률</li>
+                    <li>보존 기간: 5년</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">이용약관</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>본 약관은 주식회사 모아밴(이하 '회사')과 이용자 사이의 전자금융거래에 관한 기본적인 사항을 정함으로써 전자금융거래의 안정성 및 신뢰성의 확보를 그 목적으로 합니다.</p>
+                
+                <h3 class="text-lg font-bold mt-6 mb-3">제1조 (목적)</h3>
+                <p>본 약관은 회사와 이용자 사이의 전자금융거래에 관한 기본적인 사항을 정함으로써 전자금융거래의 안정성 및 신뢰성의 확보를 그 목적으로 합니다.</p>
+                
+                <h3 class="text-lg font-bold mt-6 mb-3">제2조 (용어의 정의)</h3>
+                <p>본 약관에서 정하는 용어의 정의는 다음과 같으며, 본 조 및 본 약관에서 별도로 정의하지 아니한 용어의 정의는 「전자금융거래법」 등 관련법령이 정한 바에 의합니다.</p>
+                <ol class="list-decimal pl-5 my-3">
+                    <li>'전자금융거래'라 함은 회사가 전자적 장치를 통하여 전자지급결제대행서비스, 결제대금 예치서비스, 전자고지결제서비스(이하 '전자금융거래 서비스'라고 합니다)를 제공하고, 이용자가 회사의 종사자와 직접 대면하거나 의사소통을 하지 아니하고 자동화된 방식으로 이를 이용하는 거래를 말합니다.</li>
+                    <li>'전자지급수단'이라 함은 전자자금이체, 직불전자지급수단, 선불전자지급수단, 전자화폐, 신용카드, 전자채권 그 밖에 전자적 방법에 따른 지급 수단을 말합니다.</li>
+                    <li>'이용자'라 함은 이 약관에 동의하고 회사가 제공하는 전자금융거래 서비스를 이용하는 자를 말합니다.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- AS신청 Modal -->
+    <div id="asModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">AS 신청</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form class="contact-form" id="asForm">
+                    <div class="form-group">
+                        <label for="asName">이름 *</label>
+                        <input type="text" id="asName" name="asName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="asPhone">연락처 *</label>
+                        <input type="tel" id="asPhone" name="asPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="asAddress">주소 *</label>
+                        <input type="text" id="asAddress" name="asAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="asModel">제품 모델명 *</label>
+                        <input type="text" id="asModel" name="asModel" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="asIssue">고장 증상 *</label>
+                        <textarea id="asIssue" name="asIssue" required></textarea>
+                    </div>
+                    <div class="text-center mt-6">
+                        <button type="submit" class="btn-primary px-8 py-3">AS 신청하기</button>
+                    </div>
+                </form>
+                
+                <div class="mt-8 p-4 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold mb-2">AS 접수 안내</h4>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>AS는 본 양식을 통해 신청하시거나, 24시간 AS 문자접수(010-9979-2343)를 통해 접수 가능합니다.</li>
+                        <li>AS 접수 후 영업일 기준 24시간 내에 담당자가 연락을 드립니다.</li>
+                        <li>간단한 문제는 원격으로 해결 가능하며, 필요 시 기사 방문이 진행됩니다.</li>
+                        <li>보증기간 내 정상적 사용 중 발생한 고장은 무상수리가 가능합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="productTitle">제품 상세 정보</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="productDetailContent">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Edit Modal -->
+    <div id="productEditModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">제품 정보 수정</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="productEditForm">
+                    <input type="hidden" id="editProductId">
+                    <div class="admin-form-group">
+                        <label>제품명</label>
+                        <input type="text" id="editProductName" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>카테고리</label>
+                        <input type="text" id="editProductCategory" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>제품 이미지 URL</label>
+                        <input type="text" id="editProductImage" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>제품 설명</label>
+                        <textarea id="editProductDescription" required></textarea>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>제품 상세 내용</label>
+                        <textarea id="editProductDetail" rows="10"></textarea>
+                        <p class="text-sm text-gray-500 mt-1">HTML 태그를 사용하여 상세 내용을 입력할 수 있습니다.</p>
+                    </div>
+                    <div class="text-center mt-6">
+                        <button type="submit" class="admin-action-btn">저장하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tawk.to Script -->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        // Tawk.to 회원가입 후 실제 ID로 변경하세요
+        s1.src='https://embed.tawk.to/YOUR_TAWK_ID/default';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Modal Functionality
+        const modals = document.querySelectorAll('.modal');
+        const modalTriggers = document.querySelectorAll('.modal-trigger');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const modalId = trigger.getAttribute('href').substring(1);
+                document.getElementById(modalId).style.display = 'block';
+            });
+        });
+        
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                modal.style.display = 'none';
+            });
+        });
+        
+        window.addEventListener('click', (e) => {
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Event Popup Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if this popup was hidden today
+            const noShowToday = localStorage.getItem('noShowEventPopup');
+            const today = new Date().toDateString();
+            
+            // 이벤트 팝업 활성화 상태 확인 (관리자 설정에서 관리)
+            const eventPopupActive = localStorage.getItem('eventPopupActive') !== 'false';
+            
+            if (eventPopupActive && noShowToday !== today) {
+                setTimeout(() => {
+                    document.getElementById('eventPopup').style.display = 'block';
+                }, 2000);
+            }
+            
+            document.getElementById('closeEventPopup').addEventListener('click', function() {
+                document.getElementById('eventPopup').style.display = 'none';
+                
+                // Set cookie if "don't show today" is checked
+                if (document.getElementById('noShowToday').checked) {
+                    localStorage.setItem('noShowEventPopup', today);
+                }
+            });
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('문의가 성공적으로 접수되었습니다. 담당자가 확인 후 빠르게 연락드리겠습니다.');
+            this.reset();
+            const modal = this.closest('.modal');
+            modal.style.display = 'none';
+        });
+
+        // AS Form Submission
+        document.getElementById('asForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('AS 요청이 성공적으로 접수되었습니다. 담당자가 확인 후 빠르게 연락드리겠습니다.');
+            this.reset();
+            const modal = this.closest('.modal');
+            modal.style.display = 'none';
+        });
+
+        // AI Chatbot Functionality
+        document.getElementById('chatForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const question = document.getElementById('chatInput').value.trim();
+            if (question) {
+                // Simulate AI response
+                alert('AI 상담 시스템: 문의해주셔서 감사합니다. 담당자가 빠르게 답변 드리겠습니다.');
+                document.getElementById('chatInput').value = '';
+            }
+        });
+
+        // Admin Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple authentication (in real application, this should be done server-side)
+            if (username === 'moavan' && password === '0000') {
+                // Close login modal
+                document.getElementById('loginModal').style.display = 'none';
+                // Show admin dashboard
+                document.getElementById('adminDashboard').style.display = 'block';
+                // Scroll to admin dashboard
+                document.getElementById('adminDashboard').scrollIntoView();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+
+        // Admin Dashboard Menu
+        const adminMenuItems = document.querySelectorAll('.admin-menu-item');
+        adminMenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all menu items
+                adminMenuItems.forEach(menuItem => menuItem.classList.remove('active'));
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Hide all admin sections
+                document.querySelectorAll('.admin-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show the selected section
+                const sectionId = this.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Admin Logout
+        document.getElementById('adminLogoutBtn').addEventListener('click', function() {
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('loginForm').reset();
+        });
+
+        // Event Popup Form
+        document.getElementById('eventPopupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const active = document.getElementById('eventPopupActive').checked;
+            const title = document.getElementById('eventPopupTitle').value;
+            const imageUrl = document.getElementById('eventPopupImage').value;
+            const subtitle = document.getElementById('eventPopupSubtitle').value;
+            const content = document.getElementById('eventPopupContent').value;
+            const footer = document.getElementById('eventPopupFooter').value;
+            const buttonText = document.getElementById('eventPopupButton').value;
+            
+            // 이벤트 팝업 설정 저장 (실제로는 서버에 저장해야 함)
+            localStorage.setItem('eventPopupActive', active);
+            localStorage.setItem('eventPopupTitle', title);
+            localStorage.setItem('eventPopupImage', imageUrl);
+            localStorage.setItem('eventPopupSubtitle', subtitle);
+            localStorage.setItem('eventPopupContent', content);
+            localStorage.setItem('eventPopupFooter', footer);
+            localStorage.setItem('eventPopupButton', buttonText);
+            
+            // 실시간으로 이벤트 팝업 내용 업데이트
+            document.querySelector('.event-popup-title').textContent = title;
+            document.querySelector('.event-popup-image img').src = imageUrl;
+            document.querySelector('.event-popup-body h4').textContent = subtitle;
+            document.querySelector('.event-popup-body p').textContent = content;
+            document.querySelector('.event-popup-body .text-sm').textContent = footer;
+            document.querySelector('.event-popup-body a').textContent = buttonText;
+            
+            alert('이벤트 팝업 설정이 저장되었습니다.');
+        });
+
+        // Hero Content Form
+        document.getElementById('heroContentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const heroTitle = document.getElementById('heroTitle').value;
+            const heroDescription = document.getElementById('heroDescription').value;
+            
+            // Update the hero content on the page
+            const heroTitleElement = document.querySelector('.hero h1');
+            const heroDescElement = document.querySelector('.hero p');
+            
+            if (heroTitleElement && heroDescElement) {
+                heroTitleElement.innerHTML = heroTitle.replace(/\n/g, '<br>');
+                heroDescElement.textContent = heroDescription;
+            }
+            
+            alert('메인 페이지 내용이 성공적으로 저장되었습니다.');
+        });
+
+        // Settings Form
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (currentPassword !== '0000') {
+                alert('현재 비밀번호가 일치하지 않습니다.');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert('새 비밀번호와 확인 비밀번호가 일치하지 않습니다.');
+                return;
+            }
+            
+            alert('비밀번호가 성공적으로 변경되었습니다.');
+            this.reset();
+        });
+
+        // Chatbot Form
+        document.getElementById('chatbotForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const tawkToId = document.getElementById('tawkToId').value;
+            
+            if (tawkToId) {
+                // 실제로는 서버에 저장하거나 값을 사용하는 로직이 필요합니다
+                alert('Tawk.to 설정이 저장되었습니다.\n\n실제 사이트에서는 이 ID를 사용하여 챗봇이 활성화됩니다.');
+            } else {
+                alert('Tawk.to ID를 입력해주세요.');
+            }
+        });
+
+        // Edit Product Button Events
+        const editProductBtns = document.querySelectorAll('.edit-product-btn');
+        editProductBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productType = this.getAttribute('data-product');
+                
+                // 제품 정보를 가져와 폼에 채우기
+                const productData = getProductData(productType);
+                document.getElementById('editProductId').value = productType;
+                document.getElementById('editProductName').value = productData.name;
+                document.getElementById('editProductCategory').value = productData.category;
+                document.getElementById('editProductImage').value = productData.imageUrl;
+                document.getElementById('editProductDescription').value = productData.description;
+                document.getElementById('editProductDetail').value = productData.detailHtml || '';
+                
+                // 제품 수정 모달 열기
+                document.getElementById('productEditModal').style.display = 'block';
+            });
+        });
+
+        // Product Edit Form Submission
+        document.getElementById('productEditForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const productId = document.getElementById('editProductId').value;
+            const name = document.getElementById('editProductName').value;
+            const category = document.getElementById('editProductCategory').value;
+            const imageUrl = document.getElementById('editProductImage').value;
+            const description = document.getElementById('editProductDescription').value;
+            const detailHtml = document.getElementById('editProductDetail').value;
+            
+            // 제품 정보 저장 (실제로는 서버에 저장해야 함)
+            saveProductData(productId, {
+                name,
+                category,
+                imageUrl,
+                description,
+                detailHtml
+            });
+            
+            // 수정 모달 닫기
+            document.getElementById('productEditModal').style.display = 'none';
+            
+            alert('제품 정보가 성공적으로 저장되었습니다.');
+            
+            // 제품 카드 업데이트
+            updateProductCard(productId, name, imageUrl, description);
+        });
+
+        // Product Detail
+        const productDetailBtns = document.querySelectorAll('.product-detail-btn');
+        
+        productDetailBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productType = btn.getAttribute('data-product');
+                document.getElementById('productTitle').textContent = productType + ' 상세 정보';
+                
+                // 제품 상세 정보 가져오기
+                const productData = getProductData(productType);
+                let detailContent = '';
+                
+                // 저장된 상세 내용이 있으면 사용하고, 없으면 기본 템플릿 사용
+                if (productData.detailHtml) {
+                    detailContent = productData.detailHtml;
+                } else {
+                    switch(productType) {
+                        case '유선카드단말기':
+                        case '무선카드단말기':
+                        case 'POS시스템':
+                            detailContent = `
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                    <div>
+                                        <img src="${productData.imageUrl}" alt="${productData.name}" class="w-full h-auto">
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-4">${productData.name} 특징</h3>
+                                        <ul class="list-disc pl-5 space-y-2">
+                                            <li>안정적인 연결로 끊김 없는 결제 서비스</li>
+                                            <li>다양한 결제 수단 지원</li>
+                                            <li>빠른 처리 속도</li>
+                                            <li>설치 및 사용법이 간단함</li>
+                                        </ul>
+                                        <div class="mt-6">
+                                            <h4 class="font-bold mb-2">주요 사양</h4>
+                                            <p>자세한 사양은 문의 바랍니다.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-8">
+                                    <h3 class="text-xl font-bold mb-4">서비스 안내</h3>
+                                    <p class="mb-4">${productData.description}</p>
+                                    <p>설치부터 유지보수까지 모든 서비스를 제공하며, 문제 발생 시 빠른 AS를 통해 비즈니스에 차질이 없도록 지원합니다.</p>
+                                </div>
+                                <div class="text-center">
+                                    <a href="#contactModal" class="btn-primary inline-block modal-trigger">지금 문의하기</a>
+                                </div>
+                            `;
+                            break;
+                        case '키오스크':
+                        case '태블릿오더':
+                        case 'PG결제시스템':
+                            detailContent = `
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                    <div>
+                                        <img src="${productData.imageUrl}" alt="${productData.name}" class="w-full h-auto">
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold mb-4">${productData.name} 특징</h3>
+                                        <p class="mb-4">${productData.description}</p>
+                                        <p class="mb-4">자세한 정보는 문의 바랍니다.</p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="#contactModal" class="btn-primary inline-block modal-trigger">지금 문의하기</a>
+                                </div>
+                            `;
+                            break;
+                        default:
+                            detailContent = '<p>제품 정보를 불러올 수 없습니다.</p>';
+                    }
+                }
+                
+                document.getElementById('productDetailContent').innerHTML = detailContent;
+                document.getElementById('productDetailModal').style.display = 'block';
+                
+                // Re-bind modal triggers inside the dynamically loaded content
+                document.querySelectorAll('#productDetailContent .modal-trigger').forEach(trigger => {
+                    trigger.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        // Close current modal
+                        document.getElementById('productDetailModal').style.display = 'none';
+                        // Open the target modal
+                        const modalId = trigger.getAttribute('href').substring(1);
+                        document.getElementById(modalId).style.display = 'block';
+                    });
+                });
+            });
+        });
+
+        // Helper function - Get Product Data
+        function getProductData(productType) {
+            // localStorage에 저장된 제품 정보 가져오기 (실제로는 서버에서 가져와야 함)
+            const savedProduct = localStorage.getItem('product_' + productType);
+            if (savedProduct) {
+                return JSON.parse(savedProduct);
+            }
+            
+            // 기본 정보
+            const defaultData = {
+                name: productType,
+                category: getCategoryByProductType(productType),
+                description: getDescriptionByProductType(productType),
+                imageUrl: getImageUrlByProductType(productType)
+            };
+            
+            return defaultData;
+        }
+
+        // Helper function - Save Product Data
+        function saveProductData(productType, data) {
+            localStorage.setItem('product_' + productType, JSON.stringify(data));
+        }
+
+        // Helper function - Update Product Card
+        function updateProductCard(productType, name, imageUrl, description) {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                const productTitle = card.querySelector('.product-title');
+                if (productTitle && productTitle.textContent === productType) {
+                    // 제품 카드 업데이트
+                    productTitle.textContent = name;
+                    card.querySelector('.product-desc').textContent = description;
+                    card.querySelector('.product-image img').src = imageUrl;
+                    card.querySelector('.product-detail-btn').setAttribute('data-product', name);
+                }
+            });
+        }
+
+        // Helper function - Get Category by Product Type
+        function getCategoryByProductType(productType) {
+            switch(productType) {
+                case '유선카드단말기':
+                case '무선카드단말기':
+                    return '카드단말기';
+                case 'POS시스템':
+                    return 'POS';
+                case '키오스크':
+                    return '키오스크';
+                case '태블릿오더':
+                    return '주문시스템';
+                case 'PG결제시스템':
+                    return '결제시스템';
+                default:
+                    return '기타';
+            }
+        }
+
+        // Helper function - Get Description by Product Type
+        function getDescriptionByProductType(productType) {
+            switch(productType) {
+                case '유선카드단말기':
+                    return '안정적인 유선 연결로 끊김없는 결제 서비스를 제공하는 카드단말기입니다. 다양한 카드 결제를 지원합니다.';
+                case '무선카드단말기':
+                    return '이동성이 자유로운 무선 카드단말기로, 배터리 지속시간이 길고 언제 어디서나 결제가 가능합니다.';
+                case 'POS시스템':
+                    return '매출 관리, 재고 관리, 고객 데이터 관리까지 한번에 해결할 수 있는 통합 POS 시스템입니다.';
+                case '키오스크':
+                    return '인건비 절감과 효율적인 주문 처리가 가능한 무인 주문 시스템입니다. 직관적인 UI로 고객 사용이 편리합니다.';
+                case '태블릿오더':
+                    return '테이블에서 직접 주문할 수 있는 편리한 시스템으로 음식점, 카페 등에 최적화된 솔루션입니다.';
+                case 'PG결제시스템':
+                    return '온라인 결제를 위한 안전하고 편리한 PG 결제 시스템으로, 다양한 결제수단을 지원합니다.';
+                default:
+                    return '';
+            }
+        }
+
+        // Helper function - Get Image URL by Product Type
+        function getImageUrlByProductType(productType) {
+            switch(productType) {
+                case '유선카드단말기':
+                    return 'https://cdn.imweb.me/thumbnail/20250307/47dd13ec4e895.png';
+                case '무선카드단말기':
+                    return 'https://blog.kakaocdn.net/dn/ctbmIM/btsIGJB3gPi/2wvzRASK0sniQVjceZG9hk/img.jpg';
+                case 'POS시스템':
+                    return 'https://blog.kakaocdn.net/dn/b6UuXs/btsIJc3rJ0H/ZhZWwDnymTSM3SsXQOdwK1/img.jpg';
+                case '키오스크':
+                    return 'https://whee.kr/web/product/big/202303/2db0851b77a8c12483d49c54c25b2d43.png';
+                case '태블릿오더':
+                    return 'https://m.heyposmall.com/web/product/medium/202504/ef8e87072ac9921c9c8149bed8b5e5ec.png';
+                case 'PG결제시스템':
+                    return 'https://bignet.company/data/goods/1/2023/07/143_temp_16905657957541view.jpg';
+                default:
+                    return '';
+            }
+        }
+
+        // 초기에 실행될 함수들을 여기에 추가합니다
+        document.addEventListener('DOMContentLoaded', function() {
+            // 이벤트 팝업 초기화
+            if (localStorage.getItem('eventPopupActive') === null) {
+                localStorage.setItem('eventPopupActive', 'true');
+            }
+            
+            // 이벤트 팝업 폼 초기화
+            document.getElementById('eventPopupActive').checked = localStorage.getItem('eventPopupActive') !== 'false';
+            
+            if (localStorage.getItem('eventPopupTitle')) {
+                document.getElementById('eventPopupTitle').value = localStorage.getItem('eventPopupTitle');
+            }
+            
+            if (localStorage.getItem('eventPopupImage')) {
+                document.getElementById('eventPopupImage').value = localStorage.getItem('eventPopupImage');
+            }
+            
+            if (localStorage.getItem('eventPopupSubtitle')) {
+                document.getElementById('eventPopupSubtitle').value = localStorage.getItem('eventPopupSubtitle');
+            }
+            
+            if (localStorage.getItem('eventPopupContent')) {
+                document.getElementById('eventPopupContent').value = localStorage.getItem('eventPopupContent');
+            }
+            
+            if (localStorage.getItem('eventPopupFooter')) {
+                document.getElementById('eventPopupFooter').value = localStorage.getItem('eventPopupFooter');
+            }
+            
+            if (localStorage.getItem('eventPopupButton')) {
+                document.getElementById('eventPopupButton').value = localStorage.getItem('eventPopupButton');
+            }
+        });
+    </script>
 </body>
-</html> 
+</html>
