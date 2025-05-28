@@ -435,6 +435,10 @@
             max-width: 90%;
         }
 
+        .event-popup.active {
+            display: block;
+        }
+
         .event-popup-content {
             padding: 30px;
         }
@@ -683,9 +687,94 @@
                 margin-bottom: 5px;
             }
         }
+
+        /* 관리자 로그인 스타일 */
+        .admin-login {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 1001;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .overlay.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
+    <!-- 관리자 로그인 버튼 -->
+    <div class="admin-login">
+        <button onclick="showAdminLogin()" class="btn-primary">관리자</button>
+    </div>
+
+    <!-- 관리자 로그인 패널 -->
+    <div id="adminPanel" class="admin-panel">
+        <h2 class="text-xl font-bold mb-4">관리자 로그인</h2>
+        <input type="password" id="adminPassword" placeholder="비밀번호" class="border p-2 mb-4 w-full">
+        <button onclick="adminLogin()" class="btn-primary w-full">로그인</button>
+    </div>
+
+    <!-- 오버레이 -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- 제품 수정 패널 -->
+    <div id="editPanel" class="admin-panel">
+        <h2 class="text-xl font-bold mb-4">제품 정보 수정</h2>
+        <div class="mb-4">
+            <label class="block mb-2">제품 이미지</label>
+            <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-24 h-24 border rounded-lg overflow-hidden">
+                    <img id="previewImage" src="" alt="미리보기" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-grow">
+                    <input type="file" id="editImage" accept="image/*" class="hidden">
+                    <button onclick="document.getElementById('editImage').click()" class="btn-primary mb-2">이미지 선택</button>
+                    <p class="text-sm text-gray-500">권장 크기: 500x500px, 최대 2MB</p>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4">
+            <label class="block mb-2">제품명</label>
+            <input type="text" id="editTitle" class="border p-2 w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block mb-2">제품 설명</label>
+            <textarea id="editDescription" class="border p-2 w-full h-32"></textarea>
+        </div>
+        <div class="flex justify-between">
+            <button onclick="saveProductChanges()" class="btn-primary">저장</button>
+            <button onclick="closeEditPanel()" class="btn-accent">취소</button>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="py-4">
         <div class="container mx-auto flex justify-between items-center">
@@ -1613,26 +1702,51 @@
 
         // Event Popup Functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if this popup was hidden today
+            // 이벤트 팝업 표시 함수
+            function showEventPopup() {
+                const eventPopup = document.getElementById('eventPopup');
+                const overlay = document.getElementById('overlay');
+                eventPopup.classList.add('active');
+                overlay.classList.add('active');
+            }
+
+            // 이벤트 팝업 닫기 함수
+            function closeEventPopup() {
+                const eventPopup = document.getElementById('eventPopup');
+                const overlay = document.getElementById('overlay');
+                eventPopup.classList.remove('active');
+                overlay.classList.remove('active');
+
+                // '오늘 하루 보지 않기' 체크되어 있으면 쿠키 설정
+                if (document.getElementById('noShowToday').checked) {
+                    const today = new Date();
+                    localStorage.setItem('noShowEventPopup', today.toDateString());
+                }
+            }
+
+            // 이벤트 팝업 표시 여부 확인
             const noShowToday = localStorage.getItem('noShowEventPopup');
             const today = new Date().toDateString();
             
-            // 이벤트 팝업 활성화 상태 확인 (관리자 설정에서 관리)
-            const eventPopupActive = localStorage.getItem('eventPopupActive') !== 'false';
-            
-            if (eventPopupActive && noShowToday !== today) {
-                setTimeout(() => {
-                    document.getElementById('eventPopup').style.display = 'block';
-                }, 2000);
+            if (noShowToday !== today) {
+                // 2초 후에 팝업 표시
+                setTimeout(showEventPopup, 2000);
             }
-            
-            document.getElementById('closeEventPopup').addEventListener('click', function() {
-                document.getElementById('eventPopup').style.display = 'none';
-                
-                // Set cookie if "don't show today" is checked
-                if (document.getElementById('noShowToday').checked) {
-                    localStorage.setItem('noShowEventPopup', today);
-                }
+
+            // 닫기 버튼 이벤트 리스너
+            document.getElementById('closeEventPopup').addEventListener('click', closeEventPopup);
+
+            // 오버레이 클릭시 팝업 닫기
+            document.getElementById('overlay').addEventListener('click', closeEventPopup);
+
+            // 모달 트리거 버튼 클릭 이벤트 (팝업 내부의 '지금 문의하기' 버튼)
+            document.querySelectorAll('.event-popup .modal-trigger').forEach(trigger => {
+                trigger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeEventPopup(); // 이벤트 팝업 닫기
+                    const modalId = this.getAttribute('href').substring(1);
+                    document.getElementById(modalId).style.display = 'block';
+                });
             });
         });
 
@@ -2113,6 +2227,161 @@
             document.querySelector('.event-popup-body p').textContent = content;
             
             alert('이벤트 팝업 설정이 저장되었습니다.');
+        });
+
+        // 관리자 로그인 관련 변수
+        const ADMIN_PASSWORD = '1234'; // 실제 운영시에는 더 복잡한 비밀번호로 변경하세요
+        let isAdminLoggedIn = false;
+
+        // 제품 데이터 (6개 제품)
+        let products = [
+            {
+                image: 'product1.jpg',
+                title: '제품 1',
+                description: '제품 1 설명'
+            },
+            {
+                image: 'product2.jpg',
+                title: '제품 2',
+                description: '제품 2 설명'
+            },
+            {
+                image: 'product3.jpg',
+                title: '제품 3',
+                description: '제품 3 설명'
+            },
+            {
+                image: 'product4.jpg',
+                title: '제품 4',
+                description: '제품 4 설명'
+            },
+            {
+                image: 'product5.jpg',
+                title: '제품 5',
+                description: '제품 5 설명'
+            },
+            {
+                image: 'product6.jpg',
+                title: '제품 6',
+                description: '제품 6 설명'
+            }
+        ];
+
+        // 관리자 로그인 패널 표시
+        function showAdminLogin() {
+            document.getElementById('adminPanel').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        // 관리자 로그인 처리
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdminLoggedIn = true;
+                alert('로그인 성공!');
+                document.getElementById('adminPanel').classList.remove('active');
+                document.getElementById('overlay').classList.remove('active');
+                showEditButtons();
+            } else {
+                alert('비밀번호가 올바르지 않습니다.');
+            }
+        }
+
+        // 수정 버튼 표시
+        function showEditButtons() {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach((card, index) => {
+                if (!card.querySelector('.edit-button')) {
+                    const editButton = document.createElement('button');
+                    editButton.className = 'btn-primary mt-2';
+                    editButton.textContent = '수정';
+                    editButton.onclick = () => showEditPanel(index);
+                    card.appendChild(editButton);
+                }
+            });
+        }
+
+        // 제품 수정 패널 표시
+        function showEditPanel(productIndex) {
+            const product = products[productIndex];
+            document.getElementById('previewImage').src = product.image || '';
+            document.getElementById('editTitle').value = product.title;
+            document.getElementById('editDescription').value = product.description;
+            document.getElementById('editPanel').dataset.productIndex = productIndex;
+            document.getElementById('editPanel').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        // 제품 수정 패널 닫기
+        function closeEditPanel() {
+            document.getElementById('editPanel').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        // 제품 정보 저장
+        function saveProductChanges() {
+            const productIndex = parseInt(document.getElementById('editPanel').dataset.productIndex);
+            const product = products[productIndex];
+            const imageFile = document.getElementById('editImage').files[0];
+            
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    product.image = e.target.result; // Base64 이미지 데이터 저장
+                    updateProductDisplay(productIndex, product);
+                };
+                reader.readAsDataURL(imageFile);
+            }
+
+            product.title = document.getElementById('editTitle').value;
+            product.description = document.getElementById('editDescription').value;
+
+            updateProductDisplay(productIndex, product);
+            closeEditPanel();
+            alert('제품 정보가 수정되었습니다.');
+        }
+
+        // 제품 표시 업데이트 함수
+        function updateProductDisplay(productIndex, product) {
+            const productCard = document.querySelectorAll('.product-card')[productIndex];
+            if (product.image) {
+                productCard.querySelector('img').src = product.image;
+            }
+            productCard.querySelector('h3').textContent = product.title;
+            productCard.querySelector('p').textContent = product.description;
+        }
+
+        // 오버레이 클릭시 패널 닫기
+        document.getElementById('overlay').addEventListener('click', function() {
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('editPanel').classList.remove('active');
+            this.classList.remove('active');
+        });
+
+        // 이미지 미리보기 기능
+        document.getElementById('editImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // 파일 크기 체크 (2MB)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('이미지 크기는 2MB를 초과할 수 없습니다.');
+                    this.value = '';
+                    return;
+                }
+
+                // 이미지 타입 체크
+                if (!file.type.startsWith('image/')) {
+                    alert('이미지 파일만 업로드 가능합니다.');
+                    this.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 
