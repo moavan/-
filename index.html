@@ -1662,15 +1662,92 @@
     </script>
 
     <script>
-        // Mobile Menu Toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.remove('hidden');
-            } else {
-                mobileMenu.classList.add('hidden');
+        // 이벤트 팝업 관련 코드
+        document.addEventListener('DOMContentLoaded', function() {
+            // 이벤트 팝업 초기화
+            initializeEventPopup();
+            
+            // 이벤트 팝업 관련 이벤트 리스너 설정
+            setupEventPopupListeners();
+            
+            // 모바일 메뉴 토글
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.remove('hidden');
+                    } else {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
             }
         });
+
+        // 이벤트 팝업 초기화 함수
+        function initializeEventPopup() {
+            const noShowToday = localStorage.getItem('noShowEventPopup');
+            const today = new Date().toDateString();
+            
+            if (noShowToday !== today) {
+                setTimeout(() => {
+                    const eventPopup = document.getElementById('eventPopup');
+                    const overlay = document.getElementById('overlay');
+                    if (eventPopup && overlay) {
+                        eventPopup.classList.add('active');
+                        overlay.classList.add('active');
+                    }
+                }, 2000);
+            }
+        }
+
+        // 이벤트 팝업 리스너 설정
+        function setupEventPopupListeners() {
+            // 이벤트 팝업 닫기 버튼
+            const closeEventPopup = document.getElementById('closeEventPopup');
+            if (closeEventPopup) {
+                closeEventPopup.addEventListener('click', handleEventPopupClose);
+            }
+
+            // 오늘 하루 보지 않기 체크박스
+            const noShowToday = document.getElementById('noShowToday');
+            if (noShowToday) {
+                noShowToday.addEventListener('change', handleNoShowToday);
+            }
+
+            // 오버레이 클릭 이벤트
+            const overlay = document.getElementById('overlay');
+            if (overlay) {
+                overlay.addEventListener('click', handleEventPopupClose);
+            }
+        }
+
+        // 이벤트 팝업 닫기 처리 함수
+        function handleEventPopupClose() {
+            const eventPopup = document.getElementById('eventPopup');
+            const overlay = document.getElementById('overlay');
+            
+            if (eventPopup && overlay) {
+                eventPopup.classList.remove('active');
+                overlay.classList.remove('active');
+
+                // 체크박스 확인
+                const noShowToday = document.getElementById('noShowToday');
+                if (noShowToday && noShowToday.checked) {
+                    const today = new Date().toDateString();
+                    localStorage.setItem('noShowEventPopup', today);
+                }
+            }
+        }
+
+        // 오늘 하루 보지 않기 처리 함수
+        function handleNoShowToday() {
+            const checkbox = document.getElementById('noShowToday');
+            if (checkbox && checkbox.checked) {
+                const today = new Date().toDateString();
+                localStorage.setItem('noShowEventPopup', today);
+            }
+        }
 
         // Modal Functionality
         const modals = document.querySelectorAll('.modal');
@@ -2383,6 +2460,259 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        // 전역 변수 선언
+        let currentProductData = null;
+
+        // DOMContentLoaded 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            // 이벤트 팝업 초기화 및 표시
+            initializeEventPopup();
+            
+            // 관리자 기능 초기화
+            initializeAdminFeatures();
+            
+            // 기타 이벤트 리스너 설정
+            setupEventListeners();
+        });
+
+        // 이벤트 팝업 초기화 함수
+        function initializeEventPopup() {
+            const noShowToday = localStorage.getItem('noShowEventPopup');
+            const today = new Date().toDateString();
+            
+            if (noShowToday !== today) {
+                setTimeout(() => {
+                    const eventPopup = document.getElementById('eventPopup');
+                    const overlay = document.getElementById('overlay');
+                    if (eventPopup && overlay) {
+                        eventPopup.classList.add('active');
+                        overlay.classList.add('active');
+                    }
+                }, 2000);
+            }
+        }
+
+        // 관리자 기능 초기화 함수
+        function initializeAdminFeatures() {
+            // 제품 수정 버튼 이벤트 리스너
+            const editButtons = document.querySelectorAll('.edit-product-btn');
+            editButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const productId = this.getAttribute('data-product');
+                    showEditPanel(productId);
+                });
+            });
+
+            // 제품 수정 폼 제출 이벤트
+            const productEditForm = document.getElementById('productEditForm');
+            if (productEditForm) {
+                productEditForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    saveProductChanges();
+                });
+            }
+
+            // 이미지 업로드 이벤트
+            const editImage = document.getElementById('editImage');
+            if (editImage) {
+                editImage.addEventListener('change', handleImageUpload);
+            }
+
+            // 홈화면 콘텐츠 수정 폼
+            const heroContentForm = document.getElementById('heroContentForm');
+            if (heroContentForm) {
+                heroContentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    updateHeroContent();
+                });
+            }
+        }
+
+        // 이벤트 리스너 설정 함수
+        function setupEventListeners() {
+            // 이벤트 팝업 닫기 버튼
+            const closeEventPopup = document.getElementById('closeEventPopup');
+            if (closeEventPopup) {
+                closeEventPopup.addEventListener('click', handleEventPopupClose);
+            }
+
+            // 오늘 하루 보지 않기 체크박스
+            const noShowToday = document.getElementById('noShowToday');
+            if (noShowToday) {
+                noShowToday.addEventListener('change', handleNoShowToday);
+            }
+
+            // 오버레이 클릭 이벤트
+            const overlay = document.getElementById('overlay');
+            if (overlay) {
+                overlay.addEventListener('click', handleOverlayClick);
+            }
+        }
+
+        // 제품 수정 패널 표시 함수
+        function showEditPanel(productId) {
+            currentProductData = getProductData(productId);
+            const editPanel = document.getElementById('editPanel');
+            
+            if (editPanel && currentProductData) {
+                // 폼 필드 업데이트
+                document.getElementById('editTitle').value = currentProductData.name;
+                document.getElementById('editDescription').value = currentProductData.description;
+                document.getElementById('previewImage').src = currentProductData.imageUrl;
+                
+                // 패널 표시
+                editPanel.classList.add('active');
+                document.getElementById('overlay').classList.add('active');
+            }
+        }
+
+        // 제품 정보 저장 함수
+        function saveProductChanges() {
+            if (!currentProductData) return;
+
+            const title = document.getElementById('editTitle').value;
+            const description = document.getElementById('editDescription').value;
+            const imageUrl = document.getElementById('previewImage').src;
+
+            // 제품 데이터 업데이트
+            currentProductData.name = title;
+            currentProductData.description = description;
+            currentProductData.imageUrl = imageUrl;
+
+            // localStorage에 저장
+            saveProductData(currentProductData.id, currentProductData);
+
+            // UI 업데이트
+            updateProductCard(currentProductData.id);
+
+            // 패널 닫기
+            closeEditPanel();
+
+            // 성공 메시지
+            alert('제품 정보가 성공적으로 저장되었습니다.');
+        }
+
+        // 이미지 업로드 처리 함수
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // 파일 크기 체크 (2MB)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('이미지 크기는 2MB를 초과할 수 없습니다.');
+                    return;
+                }
+
+                // 이미지 타입 체크
+                if (!file.type.startsWith('image/')) {
+                    alert('이미지 파일만 업로드 가능합니다.');
+                    return;
+                }
+
+                // 이미지 미리보기
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 홈화면 콘텐츠 업데이트 함수
+        function updateHeroContent() {
+            const title = document.getElementById('heroTitle').value;
+            const description = document.getElementById('heroDescription').value;
+
+            // UI 업데이트
+            const heroTitle = document.querySelector('.hero h1');
+            const heroDesc = document.querySelector('.hero p');
+
+            if (heroTitle && heroDesc) {
+                heroTitle.innerHTML = title.replace(/\n/g, '<br>');
+                heroDesc.textContent = description;
+            }
+
+            // localStorage에 저장
+            localStorage.setItem('heroTitle', title);
+            localStorage.setItem('heroDescription', description);
+
+            alert('홈화면 내용이 성공적으로 업데이트되었습니다.');
+        }
+
+        // 이벤트 팝업 닫기 처리 함수
+        function handleEventPopupClose() {
+            const eventPopup = document.getElementById('eventPopup');
+            const overlay = document.getElementById('overlay');
+            
+            if (eventPopup && overlay) {
+                eventPopup.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        // 오늘 하루 보지 않기 처리 함수
+        function handleNoShowToday() {
+            const checkbox = document.getElementById('noShowToday');
+            if (checkbox && checkbox.checked) {
+                const today = new Date().toDateString();
+                localStorage.setItem('noShowEventPopup', today);
+            }
+        }
+
+        // 오버레이 클릭 처리 함수
+        function handleOverlayClick() {
+            handleEventPopupClose();
+            closeEditPanel();
+        }
+
+        // 제품 수정 패널 닫기 함수
+        function closeEditPanel() {
+            const editPanel = document.getElementById('editPanel');
+            const overlay = document.getElementById('overlay');
+            
+            if (editPanel && overlay) {
+                editPanel.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        // 제품 데이터 가져오기 함수
+        function getProductData(productId) {
+            // localStorage에서 데이터 가져오기
+            const savedData = localStorage.getItem(`product_${productId}`);
+            if (savedData) {
+                return JSON.parse(savedData);
+            }
+
+            // 기본 데이터 반환
+            return {
+                id: productId,
+                name: productId,
+                description: getDescriptionByProductType(productId),
+                imageUrl: getImageUrlByProductType(productId)
+            };
+        }
+
+        // 제품 데이터 저장 함수
+        function saveProductData(productId, data) {
+            localStorage.setItem(`product_${productId}`, JSON.stringify(data));
+        }
+
+        // 제품 카드 업데이트 함수
+        function updateProductCard(productId) {
+            const data = getProductData(productId);
+            const cards = document.querySelectorAll('.product-card');
+            
+            cards.forEach(card => {
+                const titleElement = card.querySelector('.product-title');
+                if (titleElement && titleElement.textContent === productId) {
+                    titleElement.textContent = data.name;
+                    card.querySelector('.product-desc').textContent = data.description;
+                    card.querySelector('.product-image img').src = data.imageUrl;
+                }
+            });
+        }
     </script>
 
     <!-- Tawk.to Script -->
