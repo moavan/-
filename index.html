@@ -730,10 +730,33 @@
     </style>
 </head>
 <body>
-    <!-- 관리자 로그인 버튼 -->
-    <div class="admin-login">
-        <button onclick="showAdminLogin()" class="btn-primary">관리자</button>
-    </div>
+    <!-- Header -->
+    <header class="py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="logo flex items-center">
+                <span class="text-primary">MOAVAN</span>
+            </a>
+            <nav class="hidden md:flex">
+                <a href="#products" class="nav-link">제품 소개</a>
+                <a href="#company" class="nav-link">회사 소개</a>
+                <a href="#contactModal" class="nav-link modal-trigger">문의하기</a>
+                <a href="#" class="btn-primary ml-4" onclick="showAdminLogin()">로그인</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobileMenuBtn" class="text-gray-500">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden bg-white w-full py-4 px-6 shadow-lg md:hidden">
+            <div class="flex flex-col space-y-3">
+                <a href="#products" class="nav-link">제품 소개</a>
+                <a href="#company" class="nav-link">회사 소개</a>
+                <a href="#contactModal" class="nav-link modal-trigger">문의하기</a>
+                <a href="#" class="nav-link" onclick="showAdminLogin()">로그인</a>
+            </div>
+        </div>
+    </header>
 
     <!-- 관리자 로그인 패널 -->
     <div id="adminPanel" class="admin-panel">
@@ -774,34 +797,6 @@
             <button onclick="closeEditPanel()" class="btn-accent">취소</button>
         </div>
     </div>
-
-    <!-- Header -->
-    <header class="py-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="logo flex items-center">
-                <span class="text-primary">MOAVAN</span>
-            </a>
-            <nav class="hidden md:flex">
-                <a href="#products" class="nav-link">제품 소개</a>
-                <a href="#company" class="nav-link">회사 소개</a>
-                <a href="#contactModal" class="nav-link modal-trigger">문의하기</a>
-                <a href="#loginModal" class="btn-primary ml-4 modal-trigger">로그인</a>
-            </nav>
-            <div class="md:hidden">
-                <button id="mobileMenuBtn" class="text-gray-500">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-        <div id="mobileMenu" class="hidden bg-white w-full py-4 px-6 shadow-lg md:hidden">
-            <div class="flex flex-col space-y-3">
-                <a href="#products" class="nav-link">제품 소개</a>
-                <a href="#company" class="nav-link">회사 소개</a>
-                <a href="#contactModal" class="nav-link modal-trigger">문의하기</a>
-                <a href="#loginModal" class="nav-link modal-trigger">로그인</a>
-            </div>
-        </div>
-    </header>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1051,17 +1046,17 @@
         </div>
     </section>
 
-    <!-- Admin Dashboard (Hidden by default) -->
-    <section id="adminDashboard" class="admin-dashboard container mx-auto">
+    <!-- Admin Dashboard -->
+    <section id="adminDashboard" class="admin-dashboard container mx-auto" style="display: none;">
         <h2 class="section-title">관리자 대시보드</h2>
         <div id="adminLogoutBtn" class="text-right mb-4">
             <button class="btn-primary">로그아웃</button>
         </div>
         
         <div class="admin-menu">
-            <div class="admin-menu-item active" data-section="siteContent">사이트 콘텐츠</div>
+            <div class="admin-menu-item active" data-section="siteContent">홈화면 수정</div>
+            <div class="admin-menu-item" data-section="eventPopup">이벤트 팝업 수정</div>
             <div class="admin-menu-item" data-section="products">제품 관리</div>
-            <div class="admin-menu-item" data-section="eventPopup">이벤트 팝업</div>
             <div class="admin-menu-item" data-section="inquiries">문의 관리</div>
             <div class="admin-menu-item" data-section="settings">설정</div>
         </div>
