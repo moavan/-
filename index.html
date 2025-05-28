@@ -2084,6 +2084,36 @@
                 document.getElementById('eventPopupButton').value = localStorage.getItem('eventPopupButton');
             }
         });
+
+        // Event Popup Form
+        document.getElementById('eventPopupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const active = document.getElementById('eventPopupActive').checked;
+            const title = document.getElementById('eventPopupTitle').value;
+            const imageUrl = document.getElementById('eventPopupImage').value;
+            const subtitle = document.getElementById('eventPopupSubtitle').value;
+            const content = document.getElementById('eventPopupContent').value;
+            const footer = document.getElementById('eventPopupFooter').value;
+            const buttonText = document.getElementById('eventPopupButton').value;
+            
+            // 이벤트 팝업 설정 저장
+            localStorage.setItem('eventPopupActive', active);
+            localStorage.setItem('eventPopupTitle', title);
+            localStorage.setItem('eventPopupImage', imageUrl);
+            localStorage.setItem('eventPopupSubtitle', subtitle);
+            localStorage.setItem('eventPopupContent', content);
+            localStorage.setItem('eventPopupFooter', footer);
+            localStorage.setItem('eventPopupButton', buttonText);
+            
+            // 실시간으로 이벤트 팝업 내용 업데이트
+            document.querySelector('.event-popup-title').textContent = title;
+            document.querySelector('.event-popup-image img').src = imageUrl;
+            document.querySelector('.event-popup-body h4').textContent = subtitle;
+            document.querySelector('.event-popup-body p').textContent = content;
+            
+            alert('이벤트 팝업 설정이 저장되었습니다.');
+        });
     </script>
 
     <!-- Tawk.to Script -->

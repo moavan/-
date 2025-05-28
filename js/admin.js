@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedProducts = localStorage.getItem('products');
     if (savedProducts) {
         Object.assign(products, JSON.parse(savedProducts));
+    } else {
+        // 초기 데이터 저장
+        localStorage.setItem('products', JSON.stringify(products));
     }
 
     // 관리자 로그인 이벤트 리스너
@@ -68,6 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const editButtons = document.querySelectorAll('.edit-product-btn');
     editButtons.forEach(btn => {
         btn.addEventListener('click', () => openProductEditModal(btn.dataset.product));
+    });
+
+    // 제품 삭제 버튼 이벤트 리스너
+    const deleteButtons = document.querySelectorAll('.admin-delete-btn');
+    deleteButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (confirm('정말로 이 제품을 삭제하시겠습니까?')) {
+                deleteProduct(btn.dataset.product);
+            }
+        });
     });
 });
 
@@ -108,6 +121,15 @@ function loadProductList() {
     // 수정 버튼 이벤트 리스너 다시 연결
     document.querySelectorAll('.edit-product-btn').forEach(btn => {
         btn.addEventListener('click', () => openProductEditModal(btn.dataset.product));
+    });
+
+    // 삭제 버튼 이벤트 리스너 다시 연결
+    document.querySelectorAll('.admin-delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (confirm('정말로 이 제품을 삭제하시겠습니까?')) {
+                deleteProduct(btn.dataset.product);
+            }
+        });
     });
 }
 
@@ -165,12 +187,28 @@ function updateProductCard(productId) {
     const productCards = document.querySelectorAll('.product-card');
     
     productCards.forEach(card => {
-        const titleElement = card.querySelector('.product-title');
-        if (titleElement && titleElement.textContent === productId) {
+        if (card.querySelector(`[data-product="${productId}"]`)) {
             card.querySelector('.product-title').textContent = product.name;
             card.querySelector('.product-desc').textContent = product.description;
             card.querySelector('.product-image img').src = product.imageUrl;
             card.querySelector('.product-detail-btn').setAttribute('data-product', product.name);
         }
     });
-} 
+}
+
+// 제품 삭제
+function deleteProduct(productId) {
+    if (products[productId]) {
+        delete products[productId];
+        localStorage.setItem('products', JSON.stringify(products));
+        loadProductList();
+        alert('제품이 삭제되었습니다.');
+    }
+}
+
+// 모달 닫기 버튼 이벤트
+document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', function() {
+        this.closest('.modal').style.display = 'none';
+    });
+}); 
