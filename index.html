@@ -1667,22 +1667,112 @@
             // 이벤트 팝업 초기화
             initializeEventPopup();
             
-            // 이벤트 팝업 관련 이벤트 리스너 설정
-            setupEventPopupListeners();
-            
             // 모바일 메뉴 토글
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             if (mobileMenuBtn) {
                 mobileMenuBtn.addEventListener('click', function() {
                     const mobileMenu = document.getElementById('mobileMenu');
-                    if (mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.remove('hidden');
-                    } else {
-                        mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // 모달 기능 초기화
+            initializeModals();
+            
+            // 폼 제출 이벤트 설정
+            setupFormSubmissions();
+            
+            // 백투탑 버튼 초기화
+            initializeBackToTop();
+        });
+
+        // 모달 초기화
+        function initializeModals() {
+            const modals = document.querySelectorAll('.modal');
+            const modalTriggers = document.querySelectorAll('.modal-trigger');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+            
+            modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const modalId = trigger.getAttribute('href').substring(1);
+                    document.getElementById(modalId).style.display = 'block';
+                });
+            });
+            
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    modal.style.display = 'none';
+                });
+            });
+            
+            window.addEventListener('click', (e) => {
+                modals.forEach(modal => {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // 폼 제출 이벤트 설정
+        function setupFormSubmissions() {
+            // Contact Form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('문의가 성공적으로 접수되었습니다. 담당자가 확인 후 빠르게 연락드리겠습니다.');
+                    this.reset();
+                    this.closest('.modal').style.display = 'none';
+                });
+            }
+
+            // AS Form
+            const asForm = document.getElementById('asForm');
+            if (asForm) {
+                asForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('AS 요청이 성공적으로 접수되었습니다. 담당자가 확인 후 빠르게 연락드리겠습니다.');
+                    this.reset();
+                    this.closest('.modal').style.display = 'none';
+                });
+            }
+
+            // Chat Form
+            const chatForm = document.getElementById('chatForm');
+            if (chatForm) {
+                chatForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const question = document.getElementById('chatInput').value.trim();
+                    if (question) {
+                        alert('AI 상담 시스템: 문의해주셔서 감사합니다. 담당자가 빠르게 답변 드리겠습니다.');
+                        document.getElementById('chatInput').value = '';
                     }
                 });
             }
-        });
+        }
+
+        // 백투탑 버튼 초기화
+        function initializeBackToTop() {
+            const backToTopButton = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
 
         // 이벤트 팝업 초기화 함수
         function initializeEventPopup() {
@@ -1701,80 +1791,48 @@
             }
         }
 
-        // 이벤트 팝업 리스너 설정
-        function setupEventPopupListeners() {
-            // 이벤트 팝업 닫기 버튼
-            const closeEventPopup = document.getElementById('closeEventPopup');
-            if (closeEventPopup) {
-                closeEventPopup.addEventListener('click', handleEventPopupClose);
-            }
-
-            // 오늘 하루 보지 않기 체크박스
-            const noShowToday = document.getElementById('noShowToday');
-            if (noShowToday) {
-                noShowToday.addEventListener('change', handleNoShowToday);
-            }
-
-            // 오버레이 클릭 이벤트
-            const overlay = document.getElementById('overlay');
-            if (overlay) {
-                overlay.addEventListener('click', handleEventPopupClose);
-            }
-        }
-
-        // 이벤트 팝업 닫기 처리 함수
-        function handleEventPopupClose() {
+        // 이벤트 팝업 닫기
+        function closeEventPopup() {
             const eventPopup = document.getElementById('eventPopup');
             const overlay = document.getElementById('overlay');
-            
             if (eventPopup && overlay) {
                 eventPopup.classList.remove('active');
                 overlay.classList.remove('active');
-
-                // 체크박스 확인
-                const noShowToday = document.getElementById('noShowToday');
-                if (noShowToday && noShowToday.checked) {
-                    const today = new Date().toDateString();
-                    localStorage.setItem('noShowEventPopup', today);
-                }
             }
         }
 
-        // 오늘 하루 보지 않기 처리 함수
-        function handleNoShowToday() {
-            const checkbox = document.getElementById('noShowToday');
-            if (checkbox && checkbox.checked) {
-                const today = new Date().toDateString();
-                localStorage.setItem('noShowEventPopup', today);
-            }
+        // "오늘 하루 보지 않기" 처리
+        function dontShowToday() {
+            localStorage.setItem('noShowEventPopup', new Date().toDateString());
+            closeEventPopup();
         }
 
-        // Modal Functionality
-        const modals = document.querySelectorAll('.modal');
-        const modalTriggers = document.querySelectorAll('.modal-trigger');
-        const closeModalButtons = document.querySelectorAll('.close-modal');
-        
-        modalTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                const modalId = trigger.getAttribute('href').substring(1);
-                document.getElementById(modalId).style.display = 'block';
-            });
-        });
-        
-        closeModalButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const modal = button.closest('.modal');
-                modal.style.display = 'none';
-            });
-        });
-        
-        window.addEventListener('click', (e) => {
-            modals.forEach(modal => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
+        // 이벤트 리스너 설정
+        document.addEventListener('DOMContentLoaded', function() {
+            // 팝업 닫기 버튼
+            const closePopupBtn = document.getElementById('closeEventPopup');
+            if (closePopupBtn) {
+                closePopupBtn.addEventListener('click', closeEventPopup);
+            }
+
+            // "오늘 하루 보지 않기" 버튼
+            const dontShowTodayBtn = document.getElementById('dontShowToday');
+            if (dontShowTodayBtn) {
+                dontShowTodayBtn.addEventListener('click', dontShowToday);
+            }
+
+            // 오버레이 클릭시 팝업 닫기
+            const overlay = document.getElementById('overlay');
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    closeEventPopup();
+                    const adminPanel = document.getElementById('adminPanel');
+                    const editPanel = document.getElementById('editPanel');
+                    if (adminPanel) adminPanel.classList.remove('active');
+                    if (editPanel) editPanel.classList.remove('active');
+                    this.classList.remove('active');
+                });
+            }
         });
 
         // Event Popup Functionality
@@ -1825,53 +1883,6 @@
                     document.getElementById(modalId).style.display = 'block';
                 });
             });
-        });
-
-        // Back to top button
-        const backToTopButton = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
-            }
-        });
-        
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Contact Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('문의가 성공적으로 접수되었습니다. 담당자가 확인 후 빠르게 연락드리겠습니다.');
-            this.reset();
-            const modal = this.closest('.modal');
-            modal.style.display = 'none';
-        });
-
-        // AS Form Submission
-        document.getElementById('asForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('AS 요청이 성공적으로 접수되었습니다. 담당자가 확인 후 빠르게 연락드리겠습니다.');
-            this.reset();
-            const modal = this.closest('.modal');
-            modal.style.display = 'none';
-        });
-
-        // AI Chatbot Functionality
-        document.getElementById('chatForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const question = document.getElementById('chatInput').value.trim();
-            if (question) {
-                // Simulate AI response
-                alert('AI 상담 시스템: 문의해주셔서 감사합니다. 담당자가 빠르게 답변 드리겠습니다.');
-                document.getElementById('chatInput').value = '';
-            }
         });
 
         // Admin Login
